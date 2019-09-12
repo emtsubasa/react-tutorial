@@ -88,8 +88,8 @@ const row_size = 3;
 
     render() {
       const history = this.state.history;
-      const current = history[this.state.stepNumber];
-      const winner = calclateWinner(current.squares);
+      const current = history[this.state.stepNumber].squares.slice();
+      const winner = calclateWinner(current);
 
       let ascmoves = history.map((step,move) => {
         let newbutton = 'Go to move #' + move + "(";
@@ -135,7 +135,7 @@ const row_size = 3;
         <div className="game">
           <div className="game-board">
             <Board 
-              squares={current.squares}
+              squares={current}
               onClick={(i) => this.handleClick(i)}
             />
           </div>
@@ -170,7 +170,9 @@ const row_size = 3;
     for(let i = 0;i < lines.length; i++){
       const [a,b,c] = lines[i];
       if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
-        return squares[a];
+        let res = squares[a];
+        squares[a] = squares[b] = squares[c] = <mark>{squares[a]}</mark>
+        return res;
       }
     }
     return null;
