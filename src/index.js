@@ -93,20 +93,10 @@ const row_size = 3;
           }
           newbutton += ")"
         }
-        const desc = move?
-          newbutton :
-          'Go to game start';
-        if(move === this.state.stepNumber){
-          return (
-          <li key={move}>
-            <button onClick={() => this.jumpTo(move)}>
-              <b>
-                {desc}
-              </b>
-            </button>
-          </li>
-          )
-        }
+        else newbutton = "Go to game start";
+        const desc = move === this.state.stepNumber?
+          <b>{newbutton}</b>:
+          newbutton;
         return (
           <li key={move}>
             <button onClick={() => this.jumpTo(move)}>
