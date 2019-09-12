@@ -124,6 +124,9 @@ const row_size = 3;
       if(winner){
         status = 'Winner ' + winner;
       }
+      else if(this.state.stepNumber === row_size * col_size){
+        status = 'Draw';
+      }
       else {
         status = 'Next player ' + (this.state.xisNext? 'X' : 'O');
       }
