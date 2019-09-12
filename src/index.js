@@ -23,23 +23,21 @@ const row_size = 3;
     }
   
     render() {
+      let board = [];
+      for(let i = 0;i < row_size;++i){
+        let line = [];
+        for(let j = 0;j < col_size;++j){
+          line.push(this.renderSquare(i * row_size + j));
+        }
+        board.push(
+          <div className="board-row">
+            {line}
+          </div>
+        );
+      }
       return (
         <div>
-          <div className="board-row">
-            {this.renderSquare(0)}
-            {this.renderSquare(1)}
-            {this.renderSquare(2)}
-          </div>
-          <div className="board-row">
-            {this.renderSquare(3)}
-            {this.renderSquare(4)}
-            {this.renderSquare(5)}
-          </div>
-          <div className="board-row">
-            {this.renderSquare(6)}
-            {this.renderSquare(7)}
-            {this.renderSquare(8)}
-          </div>
+          {board}
         </div>
       );
     }
@@ -98,7 +96,7 @@ const row_size = 3;
         const desc = move?
           newbutton :
           'Go to game start';
-        if(move == this.state.stepNumber){
+        if(move === this.state.stepNumber){
           return (
           <li key={move}>
             <button onClick={() => this.jumpTo(move)}>
