@@ -52,6 +52,7 @@ const row_size = 3;
         }],
         stepNumber: 0,
         xisNext: true,
+        isRising: true,
       }
     }
 
@@ -79,12 +80,18 @@ const row_size = 3;
       });
     }
 
+    historyReverse(){
+      this.setState({
+        isRising: !this.state.isRising,
+      });
+    }
+
     render() {
       const history = this.state.history;
       const current = history[this.state.stepNumber];
       const winner = calclateWinner(current.squares);
 
-      const moves = history.map((step,move) => {
+      let ascmoves = history.map((step,move) => {
         let newbutton = 'Go to move #' + move + "(";
         if(move){
           for(let i = 0;i < row_size * col_size;++i)
@@ -105,6 +112,13 @@ const row_size = 3;
           </li> 
         )
       })
+      const moves = this.state.isRising? 
+        ascmoves: ascmoves.reverse();
+
+      const ordertoggle = 
+        <button onClick={() => this.historyReverse()}>
+          {"asc ⇔ desc"}
+        </button>;
 
       let status;
       if(winner){
@@ -124,6 +138,7 @@ const row_size = 3;
           </div>
           <div className="game-info">
             <div>{status}</div>
+            <div>{ordertoggle}</div>
             <ol>{moves}</ol>
           </div>
         </div>
